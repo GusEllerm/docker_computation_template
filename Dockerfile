@@ -1,0 +1,28 @@
+FROM ubuntu:latest
+
+# Create computation directory structure
+# Generic for all computational tasks
+RUN mkdir -p /computation
+RUN mkdir -p computation/input
+RUN mkdir -p computation/output
+WORKDIR /computation
+
+# Add directories to enviro variables
+ENV INPUT_DIR input
+ENV OUTPUT_DIR output
+
+# Add scripts
+ADD main.py .
+
+# Add input data
+ADD test.txt ${INPUT_DIR}/test.txt  
+
+# Install libraries and dependencies
+# May need to change python version depending on the script
+RUN apt-get update && apt-get install -y build-essential python3 python3-pip 
+
+# Execute the script when container is run
+CMD [ "python3", "./main.py" ]
+# Keeps the container alive for debugging
+# CMD ["sh", "-c", "python3 ./main.py & tail -f /dev/null"]
+
