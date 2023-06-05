@@ -14,9 +14,6 @@ ENV OUTPUT_DIR output
 # Add scripts
 ADD main.py .
 
-# Add input data
-ADD test.txt ${INPUT_DIR}/test.txt  
-
 # Install libraries and dependencies
 # May need to change python version depending on the script
 RUN apt-get update && apt-get install -y build-essential python3 python3-pip 
